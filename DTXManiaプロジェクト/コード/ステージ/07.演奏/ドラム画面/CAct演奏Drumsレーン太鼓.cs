@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -20,7 +20,24 @@ namespace DTXMania
         {
             base.b活性化してない = true;
         }
+        public void Start(int nLane, float f強弱度合い, int player)
+        {
+            int num = (int)((1f - f強弱度合い) * 55f);
+            this.ct進行2[nLane + (3 * player)] = new CCounter(0, 100, 2, CDTXMania.Timer);
+            //if( nLane == 0 )
+            //{
+            //    this.ct進行[ 0 + ( 3 * player ) ] = new CCounter( 0, 100, 2, CDTXMania.Timer );
+            //}
+            //else if( nLane == 1 )
+            //{
+            //    this.ct進行[ 1 + ( 3 * player ) ] = new CCounter( 0, 100, 2, CDTXMania.Timer );
+            //}
+            //else if( nLane == 2 )
+            //{
+            //    this.ct進行[ 2 + ( 3 * player ) ] = new CCounter( 0, 100, 2, CDTXMania.Timer );
+            //}
 
+        }
         public override void On活性化()
         {
             for (int i = 0; i < 4; i++)
@@ -34,7 +51,10 @@ namespace DTXMania
             }
             this.ctゴーゴー = new CCounter();
             this.ctゴーゴースプラッシュ = new CCounter();
-
+            for (int i = 0; i < 12; i++)
+            {
+                this.ct進行2[i] = new CCounter();
+            }
 
             this.n総移動時間 = -1;
             this.nDefaultJudgePos[0] = CDTXMania.Skin.nScrollFieldX[0];
@@ -46,6 +66,10 @@ namespace DTXMania
 
         public override void On非活性化()
         {
+            for (int i = 0; i < 12; i++)
+            {
+                this.ct進行2[i] = null;
+            }
             for (int i = 0; i < 4; i++)
             {
                 this.st状態[i].ct進行 = null;
@@ -805,18 +829,60 @@ namespace DTXMania
                             case E判定.Great:
                             case E判定.Auto:
                                 //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
-                                if (this.st状態[i].nIsBig == 1 && CDTXMania.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値] != null)
-                                    CDTXMania.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2);
-                                else if (CDTXMania.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値] != null)
-                                    CDTXMania.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2);
+
+                                int y;
+                                int x_upper;
+                                int x_lower;
+
+                                // 位置決定。
+
+                                //if( this.b要素値にフォーカス中 )
+                                {
+
+                                    x_upper = 372 - this.st状態[nPlayer].ct進行.n現在の値;
+
+                                    x_lower = 800 + this.st状態[nPlayer].ct進行.n現在の値;
+
+                                    y = 295;
+                                }
+                                //else
+                                //{
+                                //x = 276;	// 項目名の上下あたり。
+                                //y_upper = 186 - this.ct三角矢印アニメ.n現在の値;
+                                //y_lower = 254 + this.ct三角矢印アニメ.n現在の値;
+                                //}
+
+                                // 描画。
+                                if (this.st状態[nPlayer].ct進行.n現在の値 < 1) CDTXMania.Tx.Effects_Hit_Great.n透明度 = 255;
+                                else if (this.st状態[nPlayer].ct進行.n現在の値 >= 1 && this.st状態[nPlayer].ct進行.n現在の値 < 22) CDTXMania.Tx.Effects_Hit_Great.n透明度 = (int)(255 - (16 * this.st状態[nPlayer].ct進行.n現在の値));
+                                if (this.st状態[nPlayer].ct進行.n現在の値 < 1) CDTXMania.Tx.Effects_Hit_Great_Big.n透明度 = 255;
+                                else if (this.st状態[nPlayer].ct進行.n現在の値 >= 1 && this.st状態[nPlayer].ct進行.n現在の値 < 22) CDTXMania.Tx.Effects_Hit_Great_Big.n透明度 = (int)(255 - (16 * this.st状態[nPlayer].ct進行.n現在の値));
+                                if (this.st状態[i].nIsBig == 1 && CDTXMania.Tx.Effects_Hit_Great_Big != null)
+                                    CDTXMania.Tx.Effects_Hit_Great_Big.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good.szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY2[i] - CDTXMania.Tx.Effects_Hit_Good.n透明度 / 255);
+                                else if (CDTXMania.Tx.Effects_Hit_Great != null)
+                                    CDTXMania.Tx.Effects_Hit_Great.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good.szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY2[i] - CDTXMania.Tx.Effects_Hit_Good.n透明度 / 255);
+
                                 break;
+
+
 
                             case E判定.Good:
                                 //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
-                                if (this.st状態[i].nIsBig == 1 && CDTXMania.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値] != null)
-                                    CDTXMania.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2);
-                                else if (CDTXMania.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値] != null)
-                                    CDTXMania.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2);
+
+                                #region[透明度制御]
+                                if (this.st状態[nPlayer].ct進行.n現在の値 < 1) CDTXMania.Tx.Effects_Hit_Good.n透明度 = 255;
+                                else if (this.st状態[nPlayer].ct進行.n現在の値 >= 1 && this.st状態[nPlayer].ct進行.n現在の値 < 22) CDTXMania.Tx.Effects_Hit_Good.n透明度 = (int)(255 - (16 * this.st状態[nPlayer].ct進行.n現在の値));
+                                #endregion
+                                #region[透明度制御]
+                                if (this.st状態[nPlayer].ct進行.n現在の値 < 1) CDTXMania.Tx.Effects_Hit_Good_Big.n透明度 = 255;
+                                else if (this.st状態[nPlayer].ct進行.n現在の値 >= 1 && this.st状態[nPlayer].ct進行.n現在の値 < 22) CDTXMania.Tx.Effects_Hit_Good_Big.n透明度 = (int)(255 - (16 * this.st状態[nPlayer].ct進行.n現在の値));
+                                #endregion
+
+                                if (this.st状態[i].nIsBig == 1 && CDTXMania.Tx.Effects_Hit_Good_Big != null)
+                                    CDTXMania.Tx.Effects_Hit_Good_Big.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good_Big.szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY2[i] - CDTXMania.Tx.Effects_Hit_Good_Big.n透明度 / 255);
+                                else if (CDTXMania.Tx.Effects_Hit_Good != null)
+                                    CDTXMania.Tx.Effects_Hit_Good.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good.szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY2[i] - CDTXMania.Tx.Effects_Hit_Good.n透明度 / 255);
+
                                 break;
 
                             case E判定.Miss:
@@ -837,6 +903,7 @@ namespace DTXMania
             //for( int n = 0; n < 1; n++ )
             {
                 this.st状態[nPlayer].ct進行 = new CCounter(0, 14, 20, CDTXMania.Timer);
+                this.st状態[nPlayer].ct進行2 = new CCounter(0, 1, 143, CDTXMania.Timer);
                 this.st状態[nPlayer].judge = judge;
                 this.st状態[nPlayer].nPlayer = nPlayer;
 
@@ -962,6 +1029,7 @@ namespace DTXMania
         {
             public bool b使用中;
             public CCounter ct進行;
+            public CCounter ct進行2;
             public E判定 judge;
             public int nIsBig;
             public int n透明度;
@@ -970,8 +1038,15 @@ namespace DTXMania
         private CCounter ctゴーゴー;
         private CCounter ctゴーゴー炎;
 
-        private CCounter ctゴーゴースプラッシュ;
+     public bool b使用中;
+        public CCounter ct進行;
 
+        public E判定 judge;
+        public int nIsBig;
+        public int n透明度;
+        public int nPlayer;
+        private CCounter ctゴーゴースプラッシュ;
+        private CCounter[] ct進行2 = new CCounter[3 * 4];
 
         protected STBRANCH[] stBranch = new STBRANCH[4];
         [StructLayout(LayoutKind.Sequential)]
