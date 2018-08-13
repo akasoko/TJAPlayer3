@@ -371,7 +371,6 @@ namespace DTXMania
             Effects_Hit_FireWorks[1] = TxCAf(GAME + EFFECTS + @"Hit\FireWorks_2P.png");
             if (Effects_Hit_FireWorks[1] != null) Effects_Hit_FireWorks[1].b加算合成 = true;
 
-
             Effects_Fire = TxC(GAME + EFFECTS + @"Fire.png");
             if (Effects_Fire != null) Effects_Fire.b加算合成 = true;
 
@@ -383,18 +382,13 @@ namespace DTXMania
                 Effects_Splash[i] = TxC(GAME + EFFECTS + @"Splash\" + i.ToString() + ".png");
                 if (Effects_Splash[i] != null) Effects_Splash[i].b加算合成 = true;
             }
-            Effects_Hit_Great = new CTexture[15];
-            Effects_Hit_Great_Big = new CTexture[15];
-            Effects_Hit_Good = new CTexture[15];
-            Effects_Hit_Good_Big = new CTexture[15];
-            for (int i = 0; i < 15; i++)
-            {
-                Effects_Hit_Great[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Great\" + i.ToString() + ".png");
-                Effects_Hit_Great_Big[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Great_Big\" + i.ToString() + ".png");
-                Effects_Hit_Good[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good\" + i.ToString() + ".png");
-                Effects_Hit_Good_Big[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good_Big\" + i.ToString() + ".png");
-            }
-            Effects_Roll = new CTexture[4];
+
+            Effects_Hit_Great = TxC(GAME + EFFECTS + @"Hit\" + @"Great\" + @"Great.png");
+            Effects_Hit_Great_Big = TxC(GAME + EFFECTS + @"Hit\" + @"Great_Big\" + @"Great_Big.png");
+            Effects_Hit_Good = TxC(GAME + EFFECTS + @"Hit\" + @"Good\" + @"Good.png");
+            Effects_Hit_Good_Big = TxC(GAME + EFFECTS + @"Hit\" + @"Good_Big\" + @"Good_Big.png");
+          
+          Effects_Roll = new CTexture[4];
             for (int i = 0; i < 4; i++)
             {
                 Effects_Roll[i] = TxC(GAME + EFFECTS + @"Roll\" + i.ToString() + ".png");
@@ -689,14 +683,13 @@ namespace DTXMania
             {
                 CDTXMania.tテクスチャの解放(ref Effects_Splash[i]);
             }
-            for (int i = 0; i < 15; i++)
-            {
-                CDTXMania.tテクスチャの解放(ref Effects_Hit_Great[i]);
-                CDTXMania.tテクスチャの解放(ref Effects_Hit_Great_Big[i]);
-                CDTXMania.tテクスチャの解放(ref Effects_Hit_Good[i]);
-                CDTXMania.tテクスチャの解放(ref Effects_Hit_Good_Big[i]);
-            }
-            for (int i = 0; i < 4; i++)
+           
+           CDTXMania.tテクスチャの解放(ref Effects_Hit_Great);
+            CDTXMania.tテクスチャの解放(ref Effects_Hit_Great_Big);
+            CDTXMania.tテクスチャの解放(ref Effects_Hit_Good);
+            CDTXMania.tテクスチャの解放(ref Effects_Hit_Good_Big);
+          
+          for (int i = 0; i < 4; i++)
             {
                 CDTXMania.tテクスチャの解放(ref Effects_Roll[i]);
             }
@@ -897,7 +890,7 @@ namespace DTXMania
             Effects_Rainbow;
         public CTexture[] Effects_Splash;
         public CTextureAf[] Effects_Hit_FireWorks;
-        public CTexture[] Effects_Hit_Great,
+        public CTexture Effects_Hit_Great,
             Effects_Hit_Good,
             Effects_Hit_Great_Big,
             Effects_Hit_Good_Big;
