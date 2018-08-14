@@ -301,8 +301,7 @@ namespace DTXMania
                             case 0:
                                 if( CDTXMania.Tx.Taiko_Score[0] != null )
                                 {
-
-                                    CDTXMania.Tx.Taiko_Score[0].color4 = CDTXMania.Skin.ScoreColor;
+                                    //this.txScore.color4 = new SlimDX.Color4( 1.0f, 1.0f, 1.0f );
                                     CDTXMania.Tx.Taiko_Score[0].n透明度 = alpha;
                                     CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
                                     CDTXMania.Tx.Taiko_Score[0].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x , y, rectangle );
@@ -310,21 +309,23 @@ namespace DTXMania
                                 }
                                 break;
                             case 1:
-                                if(CDTXMania.Tx.Taiko_Score[0] != null )
+                                if(CDTXMania.Tx.Taiko_Score[1] != null )
                                 {
-                                    CDTXMania.Tx.Taiko_Score[0].color4 = CDTXMania.Skin.ScoreColor1P;
-                                    CDTXMania.Tx.Taiko_Score[0].n透明度 = alpha;
-                                    CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = 1;
-                                    CDTXMania.Tx.Taiko_Score[0].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x, y, rectangle );
+                                    //this.txScore.color4 = new SlimDX.Color4( 1.0f, 0.5f, 0.4f );
+                                    //this.txScore.color4 = CDTXMania.Skin.cScoreColor1P;
+                                    CDTXMania.Tx.Taiko_Score[1].n透明度 = alpha;
+                                    CDTXMania.Tx.Taiko_Score[1].vc拡大縮小倍率.Y = 1;
+                                    CDTXMania.Tx.Taiko_Score[1].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x, y, rectangle );
                                 }
                                 break;
                             case 2:
-                                if(CDTXMania.Tx.Taiko_Score[0] != null )
+                                if(CDTXMania.Tx.Taiko_Score[2] != null )
                                 {
-                                    CDTXMania.Tx.Taiko_Score[0].color4 = CDTXMania.Skin.ScoreColor2P;
-                                    CDTXMania.Tx.Taiko_Score[0].n透明度 = alpha;
-                                    CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = 1;
-                                    CDTXMania.Tx.Taiko_Score[0].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x, y, rectangle );
+                                    //this.txScore.color4 = new SlimDX.Color4( 0.4f, 0.5f, 1.0f );
+                                    //this.txScore.color4 = CDTXMania.Skin.cScoreColor2P;
+                                    CDTXMania.Tx.Taiko_Score[2].n透明度 = alpha;
+                                    CDTXMania.Tx.Taiko_Score[2].vc拡大縮小倍率.Y = 1;
+                                    CDTXMania.Tx.Taiko_Score[2].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x, y, rectangle );
                                 }
                                 break;
                         }
