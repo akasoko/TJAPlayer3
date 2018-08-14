@@ -75,7 +75,8 @@ namespace DTXMania
                         break;
                     }
                 }
-                if( player == 1 )
+           
+	   if( player == 1 )
                 {
                     if( !this.st花火状態2P[ j ].b使用中 )
                     {
