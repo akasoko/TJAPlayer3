@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -97,39 +97,126 @@ namespace DTXMania
                             int yAdd = 0;
                             int alpha = 0;
 
-                            if ( this.stScore[i].ctTimer.n現在の値 < 10)
+                            if (this.stScore[i].ctTimer.n現在の値 < 10)
                             {
                                 xAdd = 25;
                                 alpha = 150;
-                            } else if (this.stScore[i].ctTimer.n現在の値 < 20)
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 20)
                             {
                                 xAdd = 10;
                                 alpha = 200;
-                            } else if (this.stScore[i].ctTimer.n現在の値 < 30)
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 30)
                             {
                                 xAdd = -5;
                                 alpha = 250;
-                            } else if (this.stScore[i].ctTimer.n現在の値 < 40)
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 110)
+                            {
+                                xAdd = 0;
+                                alpha = 240;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 114)
+                            {
+                                xAdd = -1;
+                                alpha = 240;
+
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 118)
+                            {
+                                xAdd = -2;
+                                alpha = 240;
+
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 122)
+                            {
+                                xAdd = -3;
+                                alpha = 240;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 126)
+                            {
+                                xAdd = -4;
+                                alpha = 250;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 130)
+                            {
+                                xAdd = -5;
+                                alpha = 250;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 134)
+                            {
+                                xAdd = -6;
+                                alpha = 250;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 138)
+                            {
+                                xAdd = -7;
+                                alpha = 250;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 142)
+                            {
+                                xAdd = -8;
+                                alpha = 250;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 146)
                             {
                                 xAdd = -9;
                                 alpha = 256;
-                            } else if (this.stScore[i].ctTimer.n現在の値 < 50)
+
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 150)
                             {
                                 xAdd = -10;
                                 alpha = 256;
-                            } else if (this.stScore[i].ctTimer.n現在の値 < 60)
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 154)
                             {
                                 xAdd = -9;
                                 alpha = 256;
-                            } else if (this.stScore[i].ctTimer.n現在の値 < 70)
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 158)
+                            {
+                                xAdd = -8;
+                                alpha = 256;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 162)
+                            {
+                                xAdd = -7;
+                                alpha = 256;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 166)
+                            {
+                                xAdd = -6;
+                                alpha = 256;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 170)
                             {
                                 xAdd = -5;
                                 alpha = 256;
-                            } else if (this.stScore[i].ctTimer.n現在の値 < 80)
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 174)
+                            {
+                                xAdd = -4;
+                                alpha = 256;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 178)
                             {
                                 xAdd = -3;
                                 alpha = 256;
-                            } else
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 182)
+                            {
+                                xAdd = -2;
+                                alpha = 256;
+                            }
+                            else if (this.stScore[i].ctTimer.n現在の値 < 186)
+                            {
+                                xAdd = -1;
+                                alpha = 256;
+                            }
+                            else
+
                             {
                                 xAdd = 0;
                                 alpha = 256;
@@ -137,67 +224,206 @@ namespace DTXMania
 
 
 
-                            if ( this.stScore[ i ].ctTimer.n現在の値 > 300 )
-                            {
-                                yAdd = -1;
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 310)
-                            {
-                                yAdd = -5;
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 320)
-                            {
-                                yAdd = -7;
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 330)
-                            {
-                                yAdd = -8;
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 340)
-                            {
-                                yAdd = -8;
-                                alpha = 256;
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 350)
-                            {
-                                yAdd = -6;
-                                alpha = 256;
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 360)
-                            {
-                                yAdd = 0;
-                                alpha = 256;
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 370)
-                            {
-                                yAdd = 5;
-                                alpha = 200;
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 380)
-                            {
-                                yAdd = 12;
-                                alpha = 150;
-
-                                if (ct点数アニメタイマ[stScore[i].nPlayer].b終了値に達してない)
+                                if (this.stScore[i].ctTimer.n現在の値 > 300)
                                 {
-                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
-                                    this.ct点数アニメタイマ[stScore[i].nPlayer].n現在の値 = 1;
+                                    yAdd = -1;
                                 }
-                                else
+                                if (this.stScore[i].ctTimer.n現在の値 > 310)
                                 {
-                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                    yAdd = -2;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 313)
+                                {
+                                    yAdd = -3;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 316)
+                                {
+                                    yAdd = -4;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 318)
+                                {
+                                    yAdd = -5;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 320)
+                                {
+                                    yAdd = -6;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 325)
+                                {
+                                    yAdd = -7;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 330)
+                                {
+                                    yAdd = -8;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 340)
+                                {
+                                    yAdd = -8;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 350)
+                                {
+                                    yAdd = -6;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 352)
+                                {
+                                    yAdd = -5;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 354)
+                                {
+                                    yAdd = -4;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 356)
+                                {
+                                    yAdd = -3;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 358)
+                                {
+                                    yAdd = -2;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 359)
+                                {
+                                    yAdd = -1;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 360)
+                                {
+                                    yAdd = 0;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 362)
+                                {
+                                    yAdd = 0;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 364)
+                                {
+                                    yAdd = 0;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 366)
+                                {
+                                    yAdd = 0;
+                                    alpha = 256;
                                 }
 
+                                if (this.stScore[i].ctTimer.n現在の値 > 368)
+                                {
+                                    yAdd = 0;
+                                    alpha = 256;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 370)
+                                {
+                                    yAdd = 1;
+                                    alpha = 200;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 371)
+                                {
+                                    yAdd = 2;
+                                    alpha = 200;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 372)
+                                {
+                                    yAdd = 3;
+                                    alpha = 200;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 373)
+                                {
+                                    yAdd = 4;
+                                    alpha = 200;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 374)
+                                {
+                                    yAdd = 5;
+                                    alpha = 200;
+                                }
 
-                            }
-                            if (this.stScore[i].ctTimer.n現在の値 > 390)
-                            {
-                                yAdd = 20;
-                                alpha = 0;
-                            }
+                                if (this.stScore[i].ctTimer.n現在の値 > 375)
+                                {
+                                    yAdd = 6;
+                                    alpha = 200;
+                                }
 
+                                if (this.stScore[i].ctTimer.n現在の値 > 376)
+                                {
+                                    yAdd = 7;
+                                    alpha = 200;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 377)
+                                {
+                                    yAdd = 8;
+                                    alpha = 200;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 378)
+                                {
+                                    yAdd = 9;
+                                    alpha = 200;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 379)
+                                {
+                                    yAdd = 10;
+                                    alpha = 200;
+                                }
+                                if (this.stScore[i].ctTimer.n現在の値 > 380)
+                                {
+                                    yAdd = 11;
+                                    alpha = 200;
 
-                            if ( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
+                                    if (this.stScore[i].ctTimer.n現在の値 > 381)
+                                    {
+                                        yAdd = 12;
+                                        alpha = 150;
+                                        this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                    }
+                                    if (this.stScore[i].ctTimer.n現在の値 > 383)
+                                    {
+                                        yAdd = 13;
+                                        alpha = 0;
+                                    }
+                                    if (this.stScore[i].ctTimer.n現在の値 > 384)
+                                    {
+                                        yAdd = 14;
+                                        alpha = 0;
+                                    }
+                                    if (this.stScore[i].ctTimer.n現在の値 > 385)
+                                    {
+                                        yAdd = 15;
+                                        alpha = 0;
+                                    }
+
+                                    if (this.stScore[i].ctTimer.n現在の値 > 386)
+                                    {
+                                        yAdd = 16;
+                                        alpha = 0;
+                                    }
+                                    if (this.stScore[i].ctTimer.n現在の値 > 387)
+                                    {
+                                        yAdd = 17;
+                                        alpha = 0;
+                                    }
+                                    if (this.stScore[i].ctTimer.n現在の値 > 388)
+                                    {
+                                        yAdd = 18;
+                                        alpha = 0;
+                                    }
+                                    if (this.stScore[i].ctTimer.n現在の値 > 389)
+                                    {
+                                        yAdd = 19;
+                                        alpha = 0;
+                                    }
+                                    if (this.stScore[i].ctTimer.n現在の値 > 390)
+                                    {
+                                        yAdd = 20;
+                                        alpha = 0;
+                                    }
+                                }
+                            
+                                if ( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
                                 base.t小文字表示(CDTXMania.Skin.Game_Score_Add_X[this.stScore[i].nPlayer] + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.Game_Score_Add_Y[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.Game_Score_Add_Y[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true )
                                 base.t小文字表示(CDTXMania.Skin.Game_Score_AddBonus_X[this.stScore[i].nPlayer] + xAdd, CDTXMania.Skin.Game_Score_AddBonus_Y[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
@@ -242,3 +468,4 @@ namespace DTXMania
         }
 	}
 }
+
