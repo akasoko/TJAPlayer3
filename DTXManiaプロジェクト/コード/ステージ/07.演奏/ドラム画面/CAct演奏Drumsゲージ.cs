@@ -268,32 +268,42 @@ namespace DTXMania
                 #endregion
 
 
-                if(CDTXMania.Tx.Gauge_Soul_Fire != null )
+            if (CDTXMania.Tx.Gauge_Soul_Fire != null)
                 {
                     //仮置き
                     int[] nSoulFire = new int[] { 52, 443, 0, 0 };
-                    for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                    for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
                     {
-                        if( this.db現在のゲージ値[ i ] >= 100.0 )
+                        if (this.db現在のゲージ値[i] >= 100.0)
                         {
+
                             this.ct炎.t進行Loop();
-                            CDTXMania.Tx.Gauge_Soul_Fire.t2D描画( CDTXMania.app.Device, 1112, nSoulFire[ i ], new Rectangle( 230 * ( this.ct炎.n現在の値 ), 0, 230, 230 ) );
+
+                            CDTXMania.Tx.Gauge_Soul_Fire.t2D描画(CDTXMania.app.Device, 1112, nSoulFire[i], new Rectangle(230 * (this.ct炎.n現在の値), 0, 230, 230));
+
+                            if (CDTXMania.Tx.Gauge_Fire[this.ct炎.n現在の値] != null)
+                            {
+                                CDTXMania.Tx.Gauge_Fire[this.ct炎.n現在の値].t2D描画(CDTXMania.app.Device, 1112, nSoulFire[i]);
+                            }
+
+
+
                         }
                     }
-                }
-                if(CDTXMania.Tx.Gauge_Soul != null )
+
+                if (CDTXMania.Tx.Gauge_Soul != null)
                 {
                     //仮置き
                     int[] nSoulY = new int[] { 125, 516, 0, 0 };
-                    for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                    for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
                     {
-                        if( this.db現在のゲージ値[ i ] >= 80.0 )
+                        if (this.db現在のゲージ値[i] >= 80.0)
                         {
-                            CDTXMania.Tx.Gauge_Soul.t2D描画( CDTXMania.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 0, 80, 80 ) );
+                            CDTXMania.Tx.Gauge_Soul.t2D描画(CDTXMania.app.Device, 1184, nSoulY[i], new Rectangle(0, 0, 80, 80));
                         }
                         else
                         {
-                            CDTXMania.Tx.Gauge_Soul.t2D描画( CDTXMania.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 80, 80, 80 ) );
+                            CDTXMania.Tx.Gauge_Soul.t2D描画(CDTXMania.app.Device, 1184, nSoulY[i], new Rectangle(0, 80, 80, 80));
                         }
                     }
                 }
