@@ -771,6 +771,7 @@ namespace TJAPlayer3
 
                 this.n矢印スクロール用タイマ値 = CSound管理.rc演奏用タイマ.n現在時刻;
 				this.ct三角矢印アニメ.t開始( 0, 1000, 1, TJAPlayer3.Timer );
+			        TJAPlayer3.stage選曲.t難易度選択画面リセット();
                     base.b初めての進行描画 = false;
 			}
 			//-----------------
@@ -1312,6 +1313,22 @@ namespace TJAPlayer3
 
                 if( this.n現在のスクロールカウンタ == 0 )
                 {
+	            #region 難易度選択画面
+                    if (TJAPlayer3.stage選曲.b難易度選択)
+                    {
+                        if (TJAPlayer3.Tx.Tile_Black != null)
+                        {
+                            TJAPlayer3.Tx.Tile_Black.n透明度 = 150;
+                            for (int i = 0; i <= (SampleFramework.GameWindowSize.Width / 64); i++)      // #23510 2010.10.31 yyagi: change "clientSize.Width" to "640" to fix FIFO drawing size
+                            {
+                                for (int j = 0; j <= (SampleFramework.GameWindowSize.Height / 64); j++) // #23510 2010.10.31 yyagi: change "clientSize.Height" to "480" to fix FIFO drawing size
+                                {
+                                    TJAPlayer3.Tx.Tile_Black.t2D描画(TJAPlayer3.app.Device, i * 64, j * 64);
+                                }
+                            }
+                        }
+                    }
+                    #endregion
                     if( TJAPlayer3.Tx.SongSelect_Bar_Center != null )
                         TJAPlayer3.Tx.SongSelect_Bar_Center.t2D描画( TJAPlayer3.app.Device, 448, TJAPlayer3.Skin.SongSelect_Overall_Y);
                     switch (r現在選択中の曲.eノード種別)
@@ -1407,16 +1424,19 @@ namespace TJAPlayer3
                                 }
                                 #endregion
                                 #region 選択カーソル
-                                if (TJAPlayer3.stage選曲.n現在選択中の曲の難易度 != (int)Difficulty.Tower && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 != (int)Difficulty.Dan)
+                                if (TJAPlayer3.stage選曲.b難易度選択)
                                 {
-                                    if (TJAPlayer3.stage選曲.n現在選択中の曲の難易度 != 4)
+                                    if (TJAPlayer3.stage選曲.n現在選択中の曲の難易度 != (int)Difficulty.Tower && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 != (int)Difficulty.Dan)
                                     {
-                                        TJAPlayer3.Tx.SongSelect_Score_Select?.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + (TJAPlayer3.stage選曲.n現在選択中の曲の難易度 * 60), TJAPlayer3.Skin.SongSelect_Overall_Y + 443);
-                                    }
-                                    else
-                                    {
-                                        TJAPlayer3.Tx.SongSelect_Score_Select?.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + (3 * 60), TJAPlayer3.Skin.SongSelect_Overall_Y + 443);
+                                        if (TJAPlayer3.stage選曲.n現在選択中の曲の難易度 != 4)
+                                        {
+                                            TJAPlayer3.Tx.SongSelect_Score_Select?.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + (TJAPlayer3.stage選曲.n現在選択中の曲の難易度 * 60), TJAPlayer3.Skin.SongSelect_Overall_Y + 443);
+                                        }
+                                        else
+                                        {
+                                            TJAPlayer3.Tx.SongSelect_Score_Select?.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + (3 * 60), TJAPlayer3.Skin.SongSelect_Overall_Y + 443);
 
+                                        }
                                     }
                                 }
                                 #endregion
