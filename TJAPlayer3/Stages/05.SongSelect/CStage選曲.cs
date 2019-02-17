@@ -176,8 +176,8 @@ namespace TJAPlayer3
 				this.ftフォント = new Font("MS UI Gothic", 26f, GraphicsUnit.Pixel );
 				for( int i = 0; i < 4; i++ )
 					this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, TJAPlayer3.Timer );
-
-                //this.act難易度選択画面.bIsDifficltSelect = true;
+                                this.ct難易度選択タイマー = new CCounter();
+                                //this.act難易度選択画面.bIsDifficltSelect = true;
 				base.On活性化();
 
 				this.actステータスパネル.t選択曲が変更された();	// 最大ランクを更新
@@ -270,6 +270,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
+			this.ct難易度選択タイマー.t進行();
 			this.ct背景スクロール用タイマー.t進行Loop();
 				#region [ 初めての進行描画 ]
 				//---------------------
@@ -287,6 +288,7 @@ namespace TJAPlayer3
 						base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
 					}
 					this.t選択曲変更通知();
+					this.t難易度選択画面リセット();
 					base.b初めての進行描画 = false;
 				}
 				//---------------------
@@ -391,9 +393,8 @@ namespace TJAPlayer3
                     this.ctDiffSelect移動待ち.t進行();
 
 				// キー入力
-				if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 
-					&& TJAPlayer3.act現在入力を占有中のプラグイン == null )
-				{
+					if ( !this.actSortSongs.bIsActivePopupMenu && !this.actQuickConfig.bIsActivePopupMenu && !this.b難易度選択)
+					{
 					#region [ 簡易CONFIGでMore、またはShift+F1: 詳細CONFIG呼び出し ]
 					if (  actQuickConfig.bGotoDetailConfig )
 					{	// 詳細CONFIG呼び出し
@@ -500,12 +501,9 @@ namespace TJAPlayer3
                                     switch (this.act曲リスト.r現在選択中の曲.eノード種別)
                                     {
                                         case C曲リストノード.Eノード種別.SCORE:
-                                            if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
-                                                TJAPlayer3.Skin.sound曲決定音.t再生する();
-                                            else
-                                                TJAPlayer3.Skin.sound決定音.t再生する();
-
-                                            this.t曲を選択する();
+                                            TJAPlayer3.Skin.sound決定音.t再生する();
+                                            this.ct難易度選択タイマー = new CCounter(0, 100, 1, TJAPlayer3.Timer);
+                                            this.b難易度選択 = true;
                                             break;
                                         case C曲リストノード.Eノード種別.BOX:
                                             {
@@ -579,48 +577,78 @@ namespace TJAPlayer3
 								this.actSortSongs.tActivatePopupMenu( E楽器パート.DRUMS, ref this.act曲リスト );
                             }
 							#endregion
-							#region [ HHx2: 難易度変更 ]
-							if ( TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.HH ) || TJAPlayer3.Pad.b押された( E楽器パート.DRUMS, Eパッド.HHO ) )
-							{	// [HH]x2 難易度変更
-								CommandHistory.Add( E楽器パート.DRUMS, EパッドFlag.HH );
-								EパッドFlag[] comChangeDifficulty = new EパッドFlag[] { EパッドFlag.HH, EパッドFlag.HH };
-								if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
-								{
-									Debug.WriteLine( "ドラムス難易度変更" );
-									this.act曲リスト.t難易度レベルをひとつ進める();
-									TJAPlayer3.Skin.sound変更音.t再生する();
-								}
-							}
-							#endregion
-							#region [ 上: 難易度変更(上) ]
-							if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.UpArrow ) )
-							{
-								//CommandHistory.Add( E楽器パート.DRUMS, EパッドFlag.HH );
-								//EパッドFlag[] comChangeDifficulty = new EパッドFlag[] { EパッドFlag.HH, EパッドFlag.HH };
-								//if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
-								{
-									Debug.WriteLine( "ドラムス難易度変更" );
-                                    this.act曲リスト.t難易度レベルをひとつ進める();
-									TJAPlayer3.Skin.sound変更音.t再生する();
-								}
-							}
-							#endregion
-							#region [ 下: 難易度変更(下) ]
-							if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.DownArrow ) )
-							{
-								//CommandHistory.Add( E楽器パート.DRUMS, EパッドFlag.HH );
-								//EパッドFlag[] comChangeDifficulty = new EパッドFlag[] { EパッドFlag.HH, EパッドFlag.HH };
-								//if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
-								{
-									Debug.WriteLine( "ドラムス難易度変更" );
-                                    this.act曲リスト.t難易度レベルをひとつ戻す();
-									TJAPlayer3.Skin.sound変更音.t再生する();
-								}
-							}
-							#endregion
 						}
 					}
+                    if (this.b難易度選択)
+                    {
+                        if (!this.actSortSongs.bIsActivePopupMenu && !this.actQuickConfig.bIsActivePopupMenu && this.ct難易度選択タイマー.b終了値に達した)
+                        {
+                            #region [ ESC ]
+                            if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.Escape) && (this.act曲リスト.r現在選択中の曲 != null))// && (  ) ) )
+                                this.t難易度選択画面リセット();
+                            #endregion
+                            #region [ Decide ]
+                            if ((TJAPlayer3.Pad.b押されたDGB(Eパッド.Decide) || (TJAPlayer3.Pad.b押されたDGB(Eパッド.LRed) || TJAPlayer3.Pad.b押されたDGB(Eパッド.RRed)) ||
+                                    ((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.Return)))))
+                            {
+                                if (this.act曲リスト.r現在選択中の曲 != null)
+                                {
+                                    switch (this.act曲リスト.r現在選択中の曲.eノード種別)
+                                    {
+                                        case C曲リストノード.Eノード種別.SCORE:
+                                            if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
+                                                TJAPlayer3.Skin.sound曲決定音.t再生する();
+                                            else
+                                                TJAPlayer3.Skin.sound決定音.t再生する();
 
+                                            this.b難易度選択 = true;
+                                            this.t曲を選択する();
+                                            break;
+                                    }
+                                }
+                            }
+                            #endregion
+                            #region [ HHx2: 難易度変更 ]
+                            if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.HH) || TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.HHO))
+                            {   // [HH]x2 難易度変更
+                                CommandHistory.Add(E楽器パート.DRUMS, EパッドFlag.HH);
+                                EパッドFlag[] comChangeDifficulty = new EパッドFlag[] { EパッドFlag.HH, EパッドFlag.HH };
+                                if (CommandHistory.CheckCommand(comChangeDifficulty, E楽器パート.DRUMS))
+                                {
+                                    Debug.WriteLine("ドラムス難易度変更");
+                                    this.act曲リスト.t難易度レベルをひとつ進める();
+                                    TJAPlayer3.Skin.sound変更音.t再生する();
+                                }
+                            }
+                            #endregion
+                            #region [ 上: 難易度変更(上) ]
+                            if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.RBlue))
+                            {
+                                //CommandHistory.Add( E楽器パート.DRUMS, EパッドFlag.HH );
+                                //EパッドFlag[] comChangeDifficulty = new EパッドFlag[] { EパッドFlag.HH, EパッドFlag.HH };
+                                //if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
+                                {
+                                    Debug.WriteLine("ドラムス難易度変更");
+                                    this.act曲リスト.t難易度レベルをひとつ進める();
+                                    TJAPlayer3.Skin.sound変更音.t再生する();
+                                }
+                            }
+                            #endregion
+                            #region [ 下: 難易度変更(下) ]
+                            if (TJAPlayer3.Pad.b押された(E楽器パート.DRUMS, Eパッド.LBlue))
+                            {
+                                //CommandHistory.Add( E楽器パート.DRUMS, EパッドFlag.HH );
+                                //EパッドFlag[] comChangeDifficulty = new EパッドFlag[] { EパッドFlag.HH, EパッドFlag.HH };
+                                //if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
+                                {
+                                    Debug.WriteLine("ドラムス難易度変更");
+                                    this.act曲リスト.t難易度レベルをひとつ戻す();
+                                    TJAPlayer3.Skin.sound変更音.t再生する();
+                                }
+                            }
+                            #endregion
+                        }
+                    }
 				    #region [ Minus & Equals Sound Group Level ]
 				    KeyboardSoundGroupLevelControlHandler.Handle(
 				        TJAPlayer3.Input管理.Keyboard, TJAPlayer3.SoundGroupLevelController, TJAPlayer3.Skin, true);
@@ -760,8 +788,10 @@ namespace TJAPlayer3
 
                 private int nGenreBack;
 		private bool bBGM再生済み;
+		public bool b難易度選択 = false;
 		private STキー反復用カウンタ ctキー反復用;
 		public CCounter ct登場時アニメ用共通;
+		public CCounter ct難易度選択タイマー;
 		private CCounter ct背景スクロール用タイマー;
 		private E戻り値 eフェードアウト完了時の戻り値;
 		private Font ftフォント;
@@ -863,8 +893,12 @@ namespace TJAPlayer3
 			}
 		}
 		private CCommandHistory CommandHistory;
-
-		private void tカーソルを下へ移動する()
+                public void t難易度選択画面リセット()
+                {
+                        this.ct難易度選択タイマー.n現在の値 = 0;
+                        this.b難易度選択 = false;
+                }
+	 	private void tカーソルを下へ移動する()
 		{
 			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 			this.act曲リスト.t次に移動();
